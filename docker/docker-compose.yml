@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web-app:
+    image: "amyassist/amy-web"
+    environment:
+      - SERVER_NAME=web-app
+  master-node:
+    image: "amyassist/amy:dev"
+    environment:
+      - AMY_SERVER_CONFIG_SERVER_URL=${AMY_URL}/rest
+  proxy:
+    build: ./proxy
+    environment:
+      - SERVER_NAME=proxy
+    ports:
+     - "80:80"
+     - "443:443"
