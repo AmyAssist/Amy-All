@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 services:
   web-app:
     image: "amyassist/amy-web"
@@ -6,6 +6,13 @@ services:
       - SERVER_NAME=web-app
   master-node:
     image: "amyassist/amy:dev"
+    volumes:
+      - type: bind
+        source: ./config
+        target: /config
+      - type: volume
+        source: db-data
+        target: /data
     environment:
       - AMY_SERVER_CONFIG_SERVER_URL=${AMY_URL}/rest
       - AMY_MQTT_CONFIG_BROKERADDRESS=tcp://broker
@@ -18,3 +25,5 @@ services:
      - "443:443"
   broker:
     image: "eclipse-mosquitto"
+volumes:
+  db-data:
