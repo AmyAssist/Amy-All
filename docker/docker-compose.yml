@@ -8,6 +8,7 @@ services:
     image: "amyassist/amy:dev"
     environment:
       - AMY_SERVER_CONFIG_SERVER_URL=${AMY_URL}/rest
+      - AMY_MQTT_CONFIG_BROKERADDRESS=tcp://broker
   proxy:
     build: ./proxy
     environment:
@@ -15,3 +16,5 @@ services:
     ports:
      - "80:80"
      - "443:443"
+  broker:
+    image: "eclipse-mosquitto"
