@@ -16,6 +16,7 @@ services:
     environment:
       - AMY_SERVER_CONFIG_SERVER_URL=${AMY_URL}/rest
       - AMY_MQTT_CONFIG_BROKERADDRESS=tcp://broker
+      - TZ=$LOCAL_TIMEZONE
   proxy:
     build: ./proxy
     environment:
