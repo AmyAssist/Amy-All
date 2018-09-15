@@ -145,7 +145,7 @@ LoadModule proxy_http_module modules/mod_proxy_http.so
 #LoadModule proxy_scgi_module modules/mod_proxy_scgi.so
 #LoadModule proxy_uwsgi_module modules/mod_proxy_uwsgi.so
 #LoadModule proxy_fdpass_module modules/mod_proxy_fdpass.so
-#LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so
+LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so
 #LoadModule proxy_ajp_module modules/mod_proxy_ajp.so
 #LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
 #LoadModule proxy_express_module modules/mod_proxy_express.so
@@ -549,8 +549,7 @@ SSLRandomSeed connect builtin
 ProxyPass "/rest" "http://master-node:80"
 ProxyPassReverse "/rest" "http://master-node:80"
 
+ProxyPass "/chat" "ws://master-node:6661"
+
 ProxyPass "/" "http://web-app:80/"
 ProxyPassReverse "/" "http://web-app:80/"
-
-ProxyPass "/chat" "ws://master-node:6661"
-ProxyPassReverse "/chat" "ws://master-node:6661"
