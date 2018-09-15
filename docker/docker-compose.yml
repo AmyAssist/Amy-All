@@ -6,8 +6,6 @@ services:
       - SERVER_NAME=web-app
   master-node:
     image: "amyassist/amy:dev"
-    ports:
-     - "6661:6661"
     depends_on:
      - "broker"
     volumes:
