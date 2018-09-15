@@ -17,6 +17,7 @@ services:
         target: /data
     environment:
       - AMY_SERVER_CONFIG_SERVER_URL=${AMY_URL}/rest
+      - AMY_SOCKET_CONFIG_CHAT_WEB_SOCKET_URL=${AMY_URL}/chat
       - AMY_MQTT_CONFIG_BROKERADDRESS=tcp://broker
       - TZ=$LOCAL_TIMEZONE
   proxy:
