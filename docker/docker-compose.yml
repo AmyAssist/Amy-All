@@ -6,8 +6,6 @@ services:
       - SERVER_NAME=web-app
   master-node:
     image: "amyassist/amy:dev"
-    ports:
-     - "6661:6661"
     depends_on:
      - "broker"
     volumes:
@@ -19,6 +17,7 @@ services:
         target: /data
     environment:
       - AMY_SERVER_CONFIG_SERVER_URL=${AMY_URL}/rest
+      - AMY_SOCKET_CONFIG_WEBSOCKETURL=${AMY_WEBSOCKET_URL}/chat
       - AMY_MQTT_CONFIG_BROKERADDRESS=tcp://broker
       - TZ=$LOCAL_TIMEZONE
   proxy:
