@@ -7,18 +7,17 @@ services:
   master-node:
     image: "amyassist/amy:dev"
     depends_on:
-     - "broker"
+     - broker
+     - database
     volumes:
-      - type: bind
-        source: ./config
-        target: /config
-      - type: volume
-        source: db-data
-        target: /data
+     - ./config:/config
     environment:
       - AMY_SERVER_CONFIG_SERVER_URL=${AMY_URL}/rest
       - AMY_SOCKET_CONFIG_WEBSOCKETURL=${AMY_WEBSOCKET_URL}/chat
-      - AMY_MQTT_CONFIG_BROKERADDRESS=tcp://broker
+      - AMY_MQTT_CONFIG_BROKER_HOST=tcp://broker
+      - AMY_JAVAX_PERSISTENCE_JAVAX_PERSISTENCE_JDBC_URL=jdbc:mysql://database/{databasename}?createDatabaseIfNotExist=true
+      - AMY_JAVAX_PERSISTENCE_JAVAX_PERSISTENCE_JDBC_USER=root
+      - AMY_JAVAX_PERSISTENCE_JAVAX_PERSISTENCE_JDBC_PASSWORD=sqlrootpassword
       - TZ=$LOCAL_TIMEZONE
   proxy:
     build: ./proxy
@@ -28,6 +27,12 @@ services:
      - "80:80"
      - "443:443"
   broker:
-    image: "eclipse-mosquitto"
+    image: eclipse-mosquitto
+  database:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: "sqlrootpassword"
+    volumes:
+     - db-data:/var/lib/mysql
 volumes:
   db-data:
